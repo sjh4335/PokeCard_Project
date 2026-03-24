@@ -1,0 +1,14 @@
+# Backend (Spring)
+back/.gradle/
+back/build/
+back/out/
+
+# Frontend (React/Vite)
+front/node_modules/
+front/dist/
+
+# IDE & OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
