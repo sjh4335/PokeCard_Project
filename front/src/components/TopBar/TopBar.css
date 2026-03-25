@@ -1,0 +1,25 @@
+.topBar {
+    position: sticky;
+    top: 0px;
+    z-index: 1000;
+   border: 2.5px solid #000000b8;
+    background-color: rgb(219, 2, 2);
+    color: white;
+    padding: 35px;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center ;
+    box-shadow: #5b3229 0px 2px 40px;
+    gap: 15px;
+    display: flex;
+    border-radius: 3px 3px 12px 12px;
+    
+}
+.ball {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    align-items: left;
+    animation: bounce 2s infinite;
+    cursor: pointer; 
+}

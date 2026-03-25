@@ -1,0 +1,54 @@
+.middle {
+  width:1000px;
+  height: 700px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4,250px);
+  background-color: #c8c8c8;
+
+}
+
+.cardTitle{
+  width: 200px;
+  height: 270px;
+  perspective: 1200px;
+  
+}
+
+.card{
+  
+  display: inline-block;
+  position: relative;/*아래 overlay태그의 기준점이됨*/
+  overflow: hidden;
+  margin: 20px;
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  will-change: transform;/*성능 최적화를 위해 해당요소의 상태가 바뀔것임을 브라우저에게 암시*/
+  box-shadow: #232323 0px 1px 2px;
+  border-radius: 12px; 
+}
+ .card:hover {
+  margin: 20px;
+  width: 120%;
+  height: 120%;
+  transform: rotateY(15deg) rotateX(15deg) scale(1.05); /*카드가 마우스에 반응하여 회전하고 확대됨*/
+  transition: transform 0.3s ease; /*회전과 확대가 부드럽게 일어나도록 설정*/
+  box-shadow: #232323 0px 15px 40px;
+  border-radius: 12px; 
+} 
+
+.overlay {
+  position: absolute; /* 카드 내부 어디든 자유롭게 배치 */
+  top: 0;
+  
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* 마우스 클릭이나 움직임을 방해하지 않고 통과시킴*/
+  transition: opacity 0.3s; /* 빛이 나타나고 사라질 때 부드럽게 처리 */
+  border-radius: 12px;
+}
+
+

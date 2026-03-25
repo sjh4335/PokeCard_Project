@@ -1,4 +1,6 @@
 
+
+
 .loginContainer {
   display: flex;            /* Flexbox 활성화 */
   flex-direction: column;
@@ -74,10 +76,3 @@
 
     cursor: pointer;
 }
-.signup {
-  display: flex;
-   align-items: center;
-}
-
-
-

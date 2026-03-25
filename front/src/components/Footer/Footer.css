@@ -1,0 +1,10 @@
+.bottom {
+    background-color: #969696;
+    color: #333;
+    padding: 150px;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center ;
+    bottom: 0px;
+    
+}
