@@ -3,6 +3,7 @@ package com.example.back.Controller;
 
 import com.example.back.DTO.LoginRequest;
 import com.example.back.DTO.LoginResponse;
+import com.example.back.Security.JwtTokenProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/auth")
 public class AuthController {
 
+    private final JwtTokenProvider tokenProvider;
+
+    public AuthController(JwtTokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
+    }
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
 
@@ -20,8 +27,9 @@ public class AuthController {
         String testPw = "123";
 
         if (testId.equals(loginRequest.getUsername()) && testPw.equals(loginRequest.getPassword())) {
-            // 로그인 성공: 가짜 토큰 발행
-            LoginResponse response = new LoginResponse("mock-jwt-token-abc-123", "로그인에 성공했습니다.");
+            // 로그인 성공: 실제 JWT 토큰 발행
+            String token = tokenProvider.generateToken(loginRequest.getUsername());
+            LoginResponse response = new LoginResponse(token, "로그인에 성공했습니다.");
             return ResponseEntity.ok(response);
         } else {
             // 로그인 실패: 401 Unauthorized 에러 반환
