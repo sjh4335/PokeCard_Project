@@ -36,11 +36,11 @@ public class SecurityConfig {
                     response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
                 })
             )
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**").permitAll()
-                .anyRequest().authenticated()
+            .authorizeHttpRequests(auth -> auth /* 어떤 주소로 들어오는 요청을 허용하거나 막을지 정함 */
+                .requestMatchers("/api/public/**").permitAll() /* 로그인이나 회원가입 페이지 /api/auth/** 은 모두 허용 */
+                .anyRequest().authenticated() /* 그 외 모든 페이지 요청은 인증 필요 */
             )
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); /* 아이디/비번을 치기 전에 이미 토큰을 들고 온 사람인지 먼저 확인해서, 인증이 됐다면 바로 통과시켜주기 위한 코드 */
 
         return http.build();
     }

@@ -13,7 +13,7 @@ const Login = () => {
 
     const handleLogin = async () => {
         try {
-            const response = await api.post('/api/auth/login', {
+            const response = await api.post('/api/public/login', { // post로 id,pw를 보내고 await으로 답장을 기다림, 응답을 response에 담음
                 username: id,
                 password: pw
             });
@@ -22,7 +22,7 @@ const Login = () => {
             const token = response.data.token;
             login(token);
             
-            alert((response.data).message || "로그인 성공");
+            alert((response.data).message || "로그인 성공"); //만약 응답에 백엔드 메세지가 있으면 그걸 출력 아니면 로그인 성공
             navigate('/'); // 로그인 성공 후 메인 페이지로 이동
         } catch (error) {
         // error가 axios에서 발생한 에러인지 확인
@@ -40,15 +40,20 @@ const Login = () => {
 
     return (
       <div className="loginContainer">
+
         <div className='loginForm'>
+
           <div className="loginTitle">
             <input className="loginInput" onChange={(e) => setId(e.target.value)} placeholder="ID" />
-            </div><div><button className="loginButton"onClick={handleLogin}>로그인</button></div>
-           <div className='pwForm'> <input className="loginPw" type="password" onChange={(e) => setPw(e.target.value)} placeholder="PW" /></div>
+          </div>
+          <div><button className="loginButton"onClick={handleLogin}>로그인</button></div>
+          <div className='pwForm'> <input className="loginPw" type="password" onChange={(e) => setPw(e.target.value)} placeholder="PW" /></div>
+
         </div>
-        <div className='signup'><h6 onClick={() => navigate('/SignUp')} style={{ cursor: 'pointer' }}>회원가입이 필요하신가요?</h6><h6>&nbsp;|&nbsp;</h6>
-         <h6 onClick={() => navigate('/PwReset')} style={{ cursor: 'pointer' }}>비밀번호 초기화</h6></div>
-        </div>
+          <div className='signup'><h6 onClick={() => navigate('/SignUp')} style={{ cursor: 'pointer' }}>회원가입이 필요하신가요?</h6><h6>&nbsp;|&nbsp;</h6>
+          <h6 onClick={() => navigate('/PwReset')} style={{ cursor: 'pointer' }}>비밀번호 초기화</h6></div>
+
+     </div>
         
     );
 };

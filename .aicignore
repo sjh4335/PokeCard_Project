@@ -1,0 +1,36 @@
+# 의존성 및 빌드 결과물 (가장 큼)
+node_modules/
+dist/
+build/
+bin/
+out/
+
+# 유니티 관련 (토큰 도둑 1순위)
+Library/
+Temp/
+Obj/
+Logs/
+UserSettings/
+*.active
+*.unitypackage
+
+# IDE 및 환경 설정
+.vscode/
+.idea/
+.gradle/
+.settings/
+.env
+.env.*
+
+# 이미지 및 미디어 (AI가 코드로 읽을 필요 없음)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.mp4
+*.wav
+*.mp3
+
+# 로그 파일
+*.log
