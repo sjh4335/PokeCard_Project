@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import api from '../../api/axios';
 import './BuySell.css';
 import axios from 'axios';
+import ip from "../../../default.ts"
 
 interface MyCard {
   cardId: number;
@@ -36,7 +37,7 @@ const SellEdit = () => {
 
   const navigate = useNavigate();
 
-  const BASE_URL = 'http://localhost:8080/pokemon/';
+  const BASE_URL = `http://${ip}:8080/pokemon/`;
 
   //이미지 변경시 실행
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
