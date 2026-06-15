@@ -42,7 +42,7 @@ public class MainController {
     public ResponseEntity<List<CardsEntity>> getAllCardList() {
 
         // 서비스호출 -> 모든 리스트 가져오기(cards테이블 조인까지)
-        List<CardsEntity> cardList = cardsRepository.findAll();
+        List<CardsEntity> cardList = cardsRepository.findAll(); // 배열형태로 바꿔서 보내주기
 
         //잘 넘어오나 확인용 로그
         log.info("전송할 DTO 리스트 (카드정보 포함): {}", cardList);
@@ -61,17 +61,17 @@ public class MainController {
             return ResponseEntity.badRequest().body("인식된 텍스트가 없습니다.");
         }
 
-        String[] parts = request.getCardNumber().split(",\\s*");
+        String[] parts = request.getCardNumber().split(",\\s*"); // 쉼표와 공백을 기준으로 분리
         Optional<CardsEntity> cardOpt = Optional.empty();
 
-        for (String part : parts) {
-            String cleanPart = part.trim();
+        for (String part : parts) { // 각 부분을 순회하면서 카드 번호 패턴이 있는지 확인
+            String cleanPart = part.trim(); // 양쪽 공백 제거
             if (cleanPart.isEmpty()) continue;
 
-            java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("\\d+/\\d+");
-            java.util.regex.Matcher matcher = pattern.matcher(cleanPart);
+            java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("\\d+/\\d+"); // 카드 번호 패턴 (예: 123/456)
+            java.util.regex.Matcher matcher = pattern.matcher(cleanPart); 
 
-            String targetPart = matcher.find() ? matcher.group() : cleanPart;
+            String targetPart = matcher.find() ? matcher.group() : cleanPart; // 패턴이 일치하는 부분이 있으면 그 부분을 사용, 없으면 원래 문자열 사용
             log.info("정제된 카드 번호: {}", targetPart);
 
             cardOpt = cardsRepository.findByCardNumber(targetPart);

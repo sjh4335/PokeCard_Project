@@ -3,6 +3,7 @@ import { runOcrInference, initService } from './OcrService';
 import styles from './AiCamera.module.css';
 import api from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
+import ip from '../../../default.ts';
 
 
 const AiCamera = () => {
@@ -17,7 +18,7 @@ const AiCamera = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const BASE_URL = "http://localhost:8080/pokemon/";
+  const BASE_URL = `http://${ip}:8080/pokemon/`;;
 
   const TARGET_WIDTH = 400;
   const TARGET_HEIGHT = 558;
@@ -134,7 +135,7 @@ const AiCamera = () => {
       const parts = ocrResultText.split(/,\s*/);
       let foundNumber = "";
       for (const part of parts) {
-        const match = part.match(/\d+\/\d+/);
+        const match = part.match(/\d+\/\d+/); // "123/456" 형태의 패턴을 찾음
         if (match) {
           foundNumber = match[0];
           break;

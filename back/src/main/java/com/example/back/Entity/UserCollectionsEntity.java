@@ -45,7 +45,7 @@ public class UserCollectionsEntity {
     private CardsEntity card;
 
     @PrePersist
-    public void prePersist() {
+    public void prePersist() { // 엔티티가 처음 저장되기 전에 실행되는 메서드
         this.addedAt = LocalDateTime.now();
         if (this.quantity == null) this.quantity = 1;
         if (this.conditionGrade == null) this.conditionGrade = "A";

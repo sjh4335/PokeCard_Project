@@ -47,8 +47,8 @@ public class JwtTokenProvider {/* 신분증 발급 및 진위 판독기 */
     /** 토큰 유효검사 */
     public boolean validateToken(String token) { /* JwtAuthenticationFilter에서 유효한지 호출 */
         try {
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            return true;
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token); //setSigningKey(key): 토큰 생성 시 사용한 것과 같은 비밀키를 설정함, 키가 일치해야만 토큰을 열어볼 수 있음.
+            return true; //.parseClaimsJws(token) 주어진 토큰을 열어보고 유효성을 검사
         } catch (JwtException | IllegalArgumentException e) {
             return false;
         }

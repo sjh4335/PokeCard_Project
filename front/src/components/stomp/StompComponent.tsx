@@ -61,7 +61,7 @@ const StompComponent: React.FC<StompComponentProps> = ({ opponentId: propOpponen
 		if (scrollRef.current) {
 			scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
 		}
-	}, [messages]);
+	}, [messages]); // 메시지가 업데이트 될 때마다 스크롤을 하단으로 이동
 
 	const stompHandler = (() => {
 		return {
