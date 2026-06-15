@@ -31,7 +31,7 @@ public class SecurityConfig {
 
     /** 로그인 토근 인증로직 */
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception { // throw : 메서드 실행 중 에러가 발생했을 때, 해당 예외를 직접 처리하지 않고 메서드를 호출한 곳으로 던지는(전가하는) 자바의 문법
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
@@ -56,7 +56,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:5173","http://10.32.7.27:8080"));
+        configuration.setAllowedOrigins(List.of("http://localhost:3000", "http://localhost:5173","http://localhost:8080","http://10.32.7.27:8080"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("*")); // 모든 헤더 수용
         configuration.setAllowCredentials(true);

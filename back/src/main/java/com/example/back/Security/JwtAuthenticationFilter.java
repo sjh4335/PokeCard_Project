@@ -68,7 +68,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             }
         }
 
-        filterChain.doFilter(request, response);
+        filterChain.doFilter(request, response); //"나는 내 할 일을 다 했으니, 다음 필터에게 넘겨라"는 뜻
     }
 
     private String getJwtFromRequest(HttpServletRequest request) {

@@ -6,7 +6,7 @@ const api = axios.create({
 });
 
 // 요청 인터셉터: 모든 요청에 JWT 토큰을 자동으로 추가
-api.interceptors.request.use(
+api.interceptors.request.use( // 요청이 시작되기 전에 실행되는 함수
   (config) => {
     const token = sessionStorage.getItem('accessToken');
     if (token) {
@@ -24,7 +24,7 @@ api.interceptors.request.use(
 );
 
 // 응답 인터셉터: 토큰 만료 등 인증 에러 처리 (필요시)
-api.interceptors.response.use(
+api.interceptors.response.use( // 응답이 성공적으로 도착했을 때 실행되는 함수
   (response) => response,
   (error) => {
     if (error.response && error.response.status === 401) {

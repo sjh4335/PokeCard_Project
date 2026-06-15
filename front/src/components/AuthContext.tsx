@@ -14,11 +14,11 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 /**
  * JWT의 만료 여부를 확인하는 헬퍼 함수
  */
-const isTokenValid = (token: string): boolean => {
+const isTokenValid = (token: string): boolean => { // 토큰이 유효한지 확인하는 함수
   try {
-    const payload = JSON.parse(window.atob(token.split('.')[1]));
+    const payload = JSON.parse(window.atob(token.split('.')[1])); 
     if (payload.exp) {
-      return payload.exp * 1000 > Date.now();
+      return payload.exp * 1000 > Date.now(); // exp는 초 단위이므로 밀리초로 변환하여 현재 시간과 비교
     }
     return true;
   } catch (error) {
@@ -38,14 +38,14 @@ const getLoginIdFromToken = (token: string): string | null => {
   }
 };
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => { // 로그인 상태와 관련된 상태와 함수를 관리하는 컴포넌트
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined') { // SSR (서버사이드렌더링) 환경에서는 window가 없으므로 false로 초기화
       const token = sessionStorage.getItem('accessToken');
       if (token && isTokenValid(token)) {
         return true;
       }
-      if (token) sessionStorage.removeItem('accessToken');
+      if (token) sessionStorage.removeItem('accessToken'); // 유효하지 않은 토큰이 있다면 제거
     }
     return false;
   });
@@ -54,13 +54,13 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     if (typeof window !== 'undefined') {
       const token = sessionStorage.getItem('accessToken');
       if (token && isTokenValid(token)) {
-        return getLoginIdFromToken(token);
+        return getLoginIdFromToken(token); // 모두 유효하면 토큰에서 loginId 추출
       }
     }
     return null;
   });
 
-  useEffect(() => {
+  useEffect(() => { // 다른 탭에서 로그아웃했을 때 동기화하기 위한 이벤트 리스너
     const syncLogout = (e: StorageEvent) => {
       if (e.key === 'accessToken' && !e.newValue) {
         setIsLoggedIn(false);
@@ -83,15 +83,15 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setLoginId(null);
   };
 
-  return (
+  return ( // AuthContext.Provider로 로그인 상태와 관련 함수들을 하위 컴포넌트에 제공
     <AuthContext.Provider value={{ isLoggedIn, loginId, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  const context = useContext(AuthContext);
+export const useAuth = () => { // AuthContext를 쉽게 사용할 수 있도록 하는 커스텀 훅
+  const context = useContext(AuthContext); // useContext를 사용하여 AuthContext의 로그인 상태와 함수들을 가져옴
   if (context === undefined) {
     throw new Error('useAuth must be used within an AuthProvider');
   }
